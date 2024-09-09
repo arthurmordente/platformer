@@ -21,6 +21,14 @@ public class ElevatorPlatform : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.transform.SetParent(transform);
+        }
+    }
+
     void OnCollisionStay(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -33,6 +41,7 @@ public class ElevatorPlatform : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            other.transform.SetParent(null);
             Move();
         }
     }
@@ -63,4 +72,7 @@ public class ElevatorPlatform : MonoBehaviour
             }
         }
     }
+
+    
+
 }

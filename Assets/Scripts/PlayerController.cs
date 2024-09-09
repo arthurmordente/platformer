@@ -43,8 +43,14 @@ public class PlayerController : MonoBehaviour
         float moveInput = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
+        // MovePosition (MoveSpeed = 0.5, JumpForce = 50)
         Vector3 movement = new Vector3(moveInput, 0, moveVertical) * moveSpeed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + movement);
+
+        // velocity (MoveSpeed = 20, JumpForce = 500)
+        /* Vector3 movement = new Vector3(moveInput, 0, moveVertical) * moveSpeed;
+        if (!isGrounded) { movement.y  = -5; }
+        rb.velocity = movement;*/
 
         // Pulo
         if (Input.GetButtonDown("Jump") && isGrounded)

@@ -1221,8 +1221,7 @@ MonoBehaviour:
   - {fileID: 615691355}
   enemies: []
   depositos: []
-  platforms:
-  - {fileID: 2117885942}
+  platforms: []
   cameraPosition: {x: 7, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -19, y: 34}
@@ -1850,8 +1849,8 @@ MonoBehaviour:
   platforms: []
   cameraPosition: {x: 7, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
-  xBounds: {x: -13, y: 32.5}
-  yBounds: {x: -10, y: 20}
+  xBounds: {x: -15, y: 28}
+  yBounds: {x: -10, y: 15}
 --- !u!4 &654236670
 Transform:
   m_ObjectHideFlags: 0
@@ -1917,7 +1916,7 @@ MonoBehaviour:
   platforms: []
   cameraPosition: {x: 7, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
-  xBounds: {x: -15, y: 33}
+  xBounds: {x: -15, y: 28}
   yBounds: {x: -10, y: 10}
 --- !u!4 &672211613
 Transform:
@@ -2570,7 +2569,7 @@ Transform:
   m_GameObject: {fileID: 760343924}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 6.74, z: -2.52}
+  m_LocalPosition: {x: 10, y: 7, z: -2.52}
   m_LocalScale: {x: 4, y: 0.28, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3080,7 +3079,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 20.78461
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -3095,7 +3094,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -3184,7 +3183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d627e6737811d04ba7cff745c4f1c00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStage: {fileID: 1999598867}
+  currentStage: {fileID: 434398063}
   drawDistance: 20.1
 --- !u!1 &963350748 stripped
 GameObject:
@@ -3405,8 +3404,8 @@ MonoBehaviour:
   platforms: []
   cameraPosition: {x: 7, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
-  xBounds: {x: -13, y: 32}
-  yBounds: {x: -10, y: 20}
+  xBounds: {x: -15, y: 28}
+  yBounds: {x: -10, y: 15}
 --- !u!4 &1041190860
 Transform:
   m_ObjectHideFlags: 0
@@ -3468,8 +3467,8 @@ MonoBehaviour:
   platforms: []
   cameraPosition: {x: 7, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
-  xBounds: {x: -13, y: 32}
-  yBounds: {x: -10, y: 20}
+  xBounds: {x: -15, y: 28}
+  yBounds: {x: -10, y: 10}
 --- !u!4 &1116486465
 Transform:
   m_ObjectHideFlags: 0
@@ -5422,7 +5421,7 @@ MonoBehaviour:
   cameraPosition: {x: 4.7, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 22}
-  yBounds: {x: -10, y: 16.74}
+  yBounds: {x: -10, y: 17}
 --- !u!1 &1999598865
 GameObject:
   m_ObjectHideFlags: 0

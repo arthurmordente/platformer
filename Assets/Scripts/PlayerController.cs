@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
         if (rb != null)
         {
             rb.mass = currentMass; // Sincroniza a massa inicial do Rigidbody com a variável currentMass
+            UpdateSizeBasedOnMass(); // Ajusta o tamanho inicial com base na massa
         }
         else
         {
@@ -36,64 +37,81 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Verificar se o personagem está no chão
+        // Verifica se o personagem está no chão
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
 
-        // Movimento lateral
+        // Modularização das atividades
+        HandleMovement(); // Movimentação do jogador
+        HandleJump(); // Pulo do jogador
+        HandleReceiveMassInput(); // Input para receber massa
+        HandleGiveMassInput(); // Input para depositar massa
+
+        // Verifica se o jogador está fora dos limites do estágio atual
+        if (!IsPlayerWithinBounds())
+        {
+            Respawn();
+        }
+    }
+
+    // Método para lidar com a movimentação do jogador
+    private void HandleMovement()
+    {
         float moveInput = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        // MovePosition (MoveSpeed = 0.5, JumpForce = 50)
         Vector3 movement = new Vector3(moveInput, 0, moveVertical) * moveSpeed * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + movement);
+    }
 
-        // velocity (MoveSpeed = 20, JumpForce = 500)
-        /* Vector3 movement = new Vector3(moveInput, 0, moveVertical) * moveSpeed;
-        if (!isGrounded) { movement.y  = -5; }
-        rb.velocity = movement;*/
-
-        // Pulo
+    // Método para lidar com o pulo do jogador
+    private void HandleJump()
+    {
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+    }
 
-        // Detecta a entrada do jogador para interagir com o depósito mais próximo que possa realizar a ação
+    // Método para lidar com o input de receber massa do depósito
+    private void HandleReceiveMassInput()
+    {
         if (Input.GetKey(KeyCode.Q))
         {
             Deposito depositoParaReceber = GetNearestDepositoToReceive();
             if (depositoParaReceber != null)
             {
                 depositoParaReceber.TransferMassToPlayer(this); // Recebe massa do depósito
+                UpdateSizeBasedOnMass(); // Atualiza o tamanho após receber massa
             }
         }
+    }
 
+    // Método para lidar com o input de depositar massa no depósito
+    private void HandleGiveMassInput()
+    {
         if (Input.GetKey(KeyCode.E))
         {
             Deposito depositoParaDepositar = GetNearestDepositoToGive();
             if (depositoParaDepositar != null)
             {
                 depositoParaDepositar.ReceiveMassFromPlayer(this); // Deposita massa no depósito
+                UpdateSizeBasedOnMass(); // Atualiza o tamanho após depositar massa
             }
         }
-
-        // Respawn automático ao cair fora da plataforma
-        if (CheckOutOfBounds())
-        {
-            Respawn();
-        }
     }
 
-    private bool CheckOutOfBounds(){
-        if (transform.position.y < -5 || transform.position.y > 50)
+    private bool IsPlayerWithinBounds()
+    {
+        Stage currentStage = stageManager.GetCurrentStage();
+        if (currentStage != null)
         {
-            return true;
+            return currentStage.IsWithinBounds(transform.position); // Verifica se o jogador está dentro dos limites do estágio
         }
-        return false;
+        return true; // Retorna true por padrão se não houver estágio atual
     }
+
     private Deposito GetNearestDepositoToReceive()
     {
-        // Obter todos os depósitos próximos ao jogador
         Deposito[] allDepositos = FindObjectsOfType<Deposito>();
         List<Deposito> validDepositos = allDepositos
             .Where(d => Vector3.Distance(transform.position, d.transform.position) <= interactionDistance && d.currentMass > 0)
@@ -105,7 +123,6 @@ public class PlayerController : MonoBehaviour
 
     private Deposito GetNearestDepositoToGive()
     {
-        // Obter todos os depósitos próximos ao jogador
         Deposito[] allDepositos = FindObjectsOfType<Deposito>();
         List<Deposito> validDepositos = allDepositos
             .Where(d => Vector3.Distance(transform.position, d.transform.position) <= interactionDistance && d.currentMass < d.maxMass)
@@ -143,12 +160,14 @@ public class PlayerController : MonoBehaviour
     {
         currentMass = Mathf.Max(0f, currentMass - mass); // Atualiza a massa do jogador
         UpdateRigidbodyMass(); // Atualiza a massa do Rigidbody
+        UpdateSizeBasedOnMass(); // Atualiza o tamanho após remover massa
     }
 
     public void AddMass(float mass)
     {
         currentMass += mass; // Atualiza a massa do jogador
         UpdateRigidbodyMass(); // Atualiza a massa do Rigidbody
+        UpdateSizeBasedOnMass(); // Atualiza o tamanho após adicionar massa
     }
 
     public float GetCurrentMass()
@@ -164,6 +183,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void UpdateSizeBasedOnMass()
+    {
+        // Calcula o tamanho do cubo com base na massa
+        float minSize = 0.4f; // Tamanho mínimo para massa de 1
+        float maxSize = 2f;   // Tamanho máximo para massa de 20
+        float minMass = 1f;   // Massa mínima
+        float maxMass = 20f;  // Massa máxima
+
+        // Mapeia a massa atual para o tamanho correspondente
+        float scaleFactor = Mathf.Lerp(minSize, maxSize, (currentMass - minMass) / (maxMass - minMass));
+        transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+    }
+
     public void Spawn()
     {
         if (stageManager != null)
@@ -171,6 +203,7 @@ public class PlayerController : MonoBehaviour
             stageManager.RespawnPlayer();
             ResetPlayerVelocity(); // Zera a velocidade do jogador ao respawnar
             UpdateRigidbodyMass();
+            UpdateSizeBasedOnMass(); // Atualiza o tamanho ao respawnar
         }
         else
         {
@@ -178,13 +211,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-        public void Respawn()
+    public void Respawn()
     {
         if (stageManager != null)
         {
             stageManager.RespawnPlayer();
             ResetPlayerVelocity(); // Zera a velocidade do jogador ao respawnar
             UpdateRigidbodyMass();
+            UpdateSizeBasedOnMass(); // Atualiza o tamanho ao respawnar
             stageManager.ResetCurrentStage();
         }
         else
@@ -192,7 +226,6 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("StageManager não encontrado!");
         }
     }
-
 
     private void ResetPlayerVelocity()
     {
@@ -202,11 +235,4 @@ public class PlayerController : MonoBehaviour
             rb.angularVelocity = Vector3.zero; // Zera a velocidade angular
         }
     }
-
-    // Desenha o indicador visual da distância mínima de interação no editor
-    /*private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow; // Cor do gizmo
-        Gizmos.DrawWireSphere(transform.position, interactionDistance); // Desenha a esfera com o raio de interação
-    }*/
 }

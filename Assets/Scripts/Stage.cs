@@ -8,9 +8,13 @@ public class Stage : MonoBehaviour
     public GameObject[] keys; // Chaves no estágio
     public GameObject[] enemies; // Inimigos no estágio
     public GameObject[] depositos; // Depósitos no estágio
+    public GameObject[] platforms; // Plataformas móveis no estágio
 
     public Vector3 cameraPosition; // Posição desejada da câmera para o estágio
     public Quaternion cameraRotation; // Rotação desejada da câmera para o estágio
+
+    public Vector2 xBounds; // Limites em X para o estágio
+    public Vector2 yBounds; // Limites em Y para o estágio
 
     private Goal goal; // Referência ao Goal do estágio
 
@@ -20,15 +24,14 @@ public class Stage : MonoBehaviour
         goal = GetComponentInChildren<Goal>();
         if (goal != null)
         {
-            // Define o total de chaves necessárias no Goal
-            goal.totalKeysRequired = totalKeysRequired;
+            goal.totalKeysRequired = totalKeysRequired; // Define o total de chaves necessárias no Goal
         }
         else
         {
             Debug.LogError("Goal não encontrado como filho do Stage!");
         }
 
-        // Armazena os estados iniciais dos depósitos e estoques
+        // Armazena os estados iniciais dos depósitos, chaves e plataformas
         SaveInitialState();
     }
 
@@ -41,6 +44,26 @@ public class Stage : MonoBehaviour
             if (depositoScript != null)
             {
                 depositoScript.SaveInitialState();
+            }
+        }
+
+        // Armazena as posições iniciais das chaves
+        foreach (GameObject key in keys)
+        {
+            var keyScript = key.GetComponent<Key>();
+            if (keyScript != null)
+            {
+                keyScript.SaveInitialState();
+            }
+        }
+
+        // Armazena as posições iniciais das plataformas
+        foreach (GameObject platform in platforms)
+        {
+            var platformScript = platform.GetComponent<ElevatorPlatform>();
+            if (platformScript != null)
+            {
+                platformScript.SaveInitialState();
             }
         }
     }
@@ -76,10 +99,36 @@ public class Stage : MonoBehaviour
                 depositoScript.Reset();
             }
         }
+
+        // Reseta as plataformas móveis aos seus estados iniciais
+        foreach (GameObject platform in platforms)
+        {
+            var platformScript = platform.GetComponent<ElevatorPlatform>();
+            if (platformScript != null)
+            {
+                platformScript.Reset();
+            }
+        }
+
         // Reseta o Goal, se existir
         if (goal != null)
         {
             goal.ResetGoal();
         }
+    }
+
+    // Método para verificar se uma posição está dentro dos limites do estágio
+    public bool IsWithinBounds(Vector3 position)
+    {
+        return position.x >= xBounds.x && position.x <= xBounds.y &&
+               position.y >= yBounds.x && position.y <= yBounds.y;
+    }
+
+    // Adiciona um botão ao inspector para configurar automaticamente os limites
+    [ContextMenu("Configurar Limites Padrão")]
+    private void ConfigureDefaultBounds()
+    {
+        xBounds = new Vector2(-15, 30);
+        yBounds = new Vector2(-5, 30);
     }
 }

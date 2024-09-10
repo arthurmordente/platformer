@@ -14,6 +14,7 @@ public class ElevatorPlatform : MonoBehaviour
     private float exitTimer = 0f; // Temporizador para controlar o movimento após a saída
 
     private Vector3 initialPosition; // Posição inicial da plataforma
+    private bool initialDirection;
     private Quaternion initialRotation; // Rotação inicial da plataforma
 
     void Start()
@@ -72,12 +73,14 @@ public class ElevatorPlatform : MonoBehaviour
     {
         initialPosition = transform.position; // Salva a posição inicial
         initialRotation = transform.rotation; // Salva a rotação inicial
+        initialDirection = goingToB;
     }
 
     public void Reset()
     {
         transform.position = initialPosition; // Restaura a posição inicial
         transform.rotation = initialRotation; // Restaura a rotação inicial
+        goingToB = initialDirection;
         timer = 0f; // Reseta o temporizador de movimento
         isMoving = false; // Reseta o estado de movimento
     }

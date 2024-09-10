@@ -131,4 +131,21 @@ public class Stage : MonoBehaviour
         xBounds = new Vector2(-15, 30);
         yBounds = new Vector2(-5, 30);
     }
+
+    // Adiciona um botão ao inspector para capturar a posição e rotação da câmera atual
+    [ContextMenu("Capturar Posição e Rotação da Câmera")]
+    private void CaptureCameraPositionAndRotation()
+    {
+        Camera mainCamera = Camera.main; // Obtém a câmera principal
+        if (mainCamera != null)
+        {
+            cameraPosition = mainCamera.transform.position;
+            cameraRotation = mainCamera.transform.rotation;
+            Debug.Log("Posição e rotação da câmera capturadas com sucesso.");
+        }
+        else
+        {
+            Debug.LogError("Câmera principal não encontrada!");
+        }
+    }
 }

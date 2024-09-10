@@ -35,6 +35,14 @@ public class PlayerController : MonoBehaviour
         stageManager = FindObjectOfType<StageManager>(); // Obtém a referência ao StageManager
     }
 
+    /*void Update()
+    {
+        if (stageManager != null)
+        {
+            stageManager.GetCurrentStage().UpdateCameraPosition(transform.position);
+        }
+    }*/
+
     void Update()
     {
         // Verifica se o personagem está no chão
@@ -50,6 +58,10 @@ public class PlayerController : MonoBehaviour
         if (!IsPlayerWithinBounds())
         {
             Respawn();
+        }
+        if (stageManager != null)
+        {
+            stageManager.GetCurrentStage().UpdateCameraPosition(transform.position);
         }
     }
 

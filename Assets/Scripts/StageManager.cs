@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
@@ -82,7 +83,7 @@ public class StageManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Você completou todos os estágios!");
+            SceneManager.LoadScene("Win");
         }
     }
 

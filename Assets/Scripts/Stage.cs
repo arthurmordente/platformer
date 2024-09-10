@@ -124,7 +124,7 @@ public class Stage : MonoBehaviour
     private void ConfigureDefaultBounds()
     {
         xBounds = new Vector2(-15, 30);
-        yBounds = new Vector2(-5, 30);
+        yBounds = new Vector2(-10, 10);
     }
 
     [ContextMenu("Capturar Posição e Rotação da Câmera")]

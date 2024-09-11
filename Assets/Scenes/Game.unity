@@ -1323,7 +1323,8 @@ MonoBehaviour:
   - {fileID: 615691355}
   enemies: []
   depositos: []
-  platforms: []
+  platforms:
+  - {fileID: 2117885942}
   cameraPosition: {x: 7, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -19, y: 34}

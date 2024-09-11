@@ -8,19 +8,22 @@ public class Stage : MonoBehaviour
     public GameObject[] keys; // Chaves no estágio
     public GameObject[] enemies; // Inimigos no estágio
     public GameObject[] depositos; // Depósitos no estágio
+    public GameObject[] platforms; // Plataformas móveis no estágio
 
     public Vector3 cameraPosition; // Posição desejada da câmera para o estágio
     public Quaternion cameraRotation; // Rotação desejada da câmera para o estágio
 
+    public Vector2 xBounds; // Limites em X para o estágio
+    public Vector2 yBounds; // Limites em Y para o estágio
+
     private Goal goal; // Referência ao Goal do estágio
+    private Camera mainCamera; // Referência à câmera principal
 
     void Start()
     {
-        // Encontra o Goal filho e armazena a referência
         goal = GetComponentInChildren<Goal>();
         if (goal != null)
         {
-            // Define o total de chaves necessárias no Goal
             goal.totalKeysRequired = totalKeysRequired;
         }
         else
@@ -28,13 +31,17 @@ public class Stage : MonoBehaviour
             Debug.LogError("Goal não encontrado como filho do Stage!");
         }
 
-        // Armazena os estados iniciais dos depósitos e estoques
+        mainCamera = Camera.main;
+        if (mainCamera == null)
+        {
+            Debug.LogError("Câmera principal não encontrada!");
+        }
+
         SaveInitialState();
     }
 
     private void SaveInitialState()
     {
-        // Armazena as posições e estados iniciais dos depósitos
         foreach (GameObject deposito in depositos)
         {
             var depositoScript = deposito.GetComponent<Deposito>();
@@ -43,11 +50,28 @@ public class Stage : MonoBehaviour
                 depositoScript.SaveInitialState();
             }
         }
+
+        foreach (GameObject key in keys)
+        {
+            var keyScript = key.GetComponent<Key>();
+            if (keyScript != null)
+            {
+                keyScript.SaveInitialState();
+            }
+        }
+
+        foreach (GameObject platform in platforms)
+        {
+            var platformScript = platform.GetComponent<ElevatorPlatform>();
+            if (platformScript != null)
+            {
+                platformScript.SaveInitialState();
+            }
+        }
     }
 
     public void ResetStage()
     {
-        // Reseta a posição e estado dos inimigos
         foreach (GameObject enemy in enemies)
         {
             var enemyScript = enemy.GetComponent<Enemy>();
@@ -57,7 +81,6 @@ public class Stage : MonoBehaviour
             }
         }
 
-        // Reseta a posição das chaves
         foreach (GameObject key in keys)
         {
             var keyScript = key.GetComponent<Key>();
@@ -67,7 +90,6 @@ public class Stage : MonoBehaviour
             }
         }
 
-        // Reseta os depósitos aos seus estados iniciais
         foreach (GameObject deposito in depositos)
         {
             var depositoScript = deposito.GetComponent<Deposito>();
@@ -76,10 +98,78 @@ public class Stage : MonoBehaviour
                 depositoScript.Reset();
             }
         }
-        // Reseta o Goal, se existir
+
+        foreach (GameObject platform in platforms)
+        {
+            var platformScript = platform.GetComponent<ElevatorPlatform>();
+            if (platformScript != null)
+            {
+                platformScript.Reset();
+            }
+        }
+
         if (goal != null)
         {
             goal.ResetGoal();
         }
     }
+
+    public bool IsWithinBounds(Vector3 position)
+    {
+        return position.x >= xBounds.x && position.x <= xBounds.y &&
+               position.y >= yBounds.x && position.y <= yBounds.y;
+    }
+
+    [ContextMenu("Configurar Limites Padrão")]
+    private void ConfigureDefaultBounds()
+    {
+        xBounds = new Vector2(-15, 30);
+        yBounds = new Vector2(-10, 10);
+    }
+
+    [ContextMenu("Capturar Posição e Rotação da Câmera")]
+    private void CaptureCameraPositionAndRotation()
+    {
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null)
+        {
+            cameraPosition = mainCamera.transform.position;
+            cameraRotation = mainCamera.transform.rotation;
+            Debug.Log("Posição e rotação da câmera capturadas com sucesso.");
+        }
+        else
+        {
+            Debug.LogError("Câmera principal não encontrada!");
+        }
+    }
+
+    public void UpdateCameraPosition(Vector3 playerPosition)
+{
+    if (mainCamera == null)
+    {
+        return;
+    }
+
+    // Calcula a nova posição da câmera com base na posição do jogador
+    float xRatio = Mathf.InverseLerp(xBounds.x, xBounds.y, playerPosition.x);
+    float yRatio = Mathf.InverseLerp(yBounds.x, yBounds.y, playerPosition.y);
+
+    // Define os limites internos da câmera (10 unidades para dentro da área de jogo)
+    float innerXMin = xBounds.x;
+    float innerXMax = xBounds.y;
+    float innerYMin = yBounds.x;
+    float innerYMax = yBounds.y;
+
+    // Calcula a nova posição da câmera na direção X e Y proporcional à posição do jogador, dentro dos limites
+    float newCameraX = Mathf.Lerp(innerXMin, innerXMax, xRatio);
+    float newCameraY = Mathf.Lerp(innerYMin, innerYMax, yRatio);
+
+    // Mantém a posição Z da câmera fixa para evitar deslocamento em perspectiva
+    Vector3 newCameraPosition = new Vector3(newCameraX + cameraPosition.x, newCameraY + cameraPosition.y, mainCamera.transform.position.z);
+
+    // Atualiza a posição da câmera suavemente
+    mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, newCameraPosition, Time.deltaTime * 2f);
+}
+
+
 }

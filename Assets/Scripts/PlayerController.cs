@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
 
         // Modularização das atividades
-        HandleMovement(); // Movimentação do jogador
+        //HandleMovement(); // Movimentação do jogador
         HandleJump(); // Pulo do jogador
         HandleReceiveMassInput(); // Input para receber massa
         HandleGiveMassInput(); // Input para depositar massa
@@ -65,6 +65,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+       FHandleMovement();
+    }	
+
+
     // Método para lidar com a movimentação do jogador
     private void HandleMovement()
     {
@@ -74,6 +80,23 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(moveInput, 0, moveVertical) * moveSpeed * Time.deltaTime;
         rb.MovePosition(rb.position + movement);
     }
+
+    private void FHandleMovement()
+    {       
+        float moveInput = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        // Cria um vetor de movimento baseado nas entradas horizontais e verticais
+        Vector3 movement = new Vector3(moveInput, 0, moveVertical).normalized;
+
+        // Aplica a força ao Rigidbody
+        if(movement != Vector3.zero){
+            Debug.Log("Aplicando forca");
+        }
+        rb.AddForce(movement * moveSpeed, ForceMode.Acceleration);
+          
+    }
+
 
     // Método para lidar com o pulo do jogador
     private void HandleJump()

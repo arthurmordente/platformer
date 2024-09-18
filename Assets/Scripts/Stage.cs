@@ -74,10 +74,13 @@ public class Stage : MonoBehaviour
     {
         foreach (GameObject enemy in enemies)
         {
-            var enemyScript = enemy.GetComponent<Enemy>();
-            if (enemyScript != null)
+            if (enemy != null)
             {
-                enemyScript.Reset();
+                var enemyScript = enemy.GetComponent<Enemy>();
+                if (enemyScript != null)
+                {
+                    enemyScript.Reset();
+                }
             }
         }
 

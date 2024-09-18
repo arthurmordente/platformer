@@ -276,4 +276,9 @@ public class PlayerController : MonoBehaviour
     {
         return stageManager;
     }
+
+    public void WalkBost(Vector3 direction, float velocity)
+    {
+        rb.AddForce(direction * velocity, ForceMode.VelocityChange);
+    }
 }

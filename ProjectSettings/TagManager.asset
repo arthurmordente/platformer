@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Deposito
   - GravityButton
+  - Trampoline
   layers:
   - Default
   - TransparentFX

@@ -190,6 +190,10 @@ public class PlayerController : MonoBehaviour
         {
             Respawn();
         }
+        else if (collision.gameObject.CompareTag("Trampoline"))
+        {
+            isGrounded = true;
+        }
     }
     
     public void RemoveMass(float mass)

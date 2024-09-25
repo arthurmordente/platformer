@@ -5,7 +5,7 @@ using System.Linq; // Necessário para usar métodos de consulta
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public float jumpForce = 7f;
+    public float jumpForce = 50f;
     public float currentMass = 10f; // Massa atual do jogador
     public float interactionDistance = 5f; // Distância mínima para interagir com o depósito
 
@@ -193,6 +193,7 @@ public class PlayerController : MonoBehaviour
         else if (collision.gameObject.CompareTag("Trampoline"))
         {
             isGrounded = true;
+            jumpForce = 80f;
         }
     }
     

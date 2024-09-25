@@ -8701,10 +8701,10 @@ MonoBehaviour:
   - {fileID: 926495839}
   - {fileID: 606641083}
   - {fileID: 1850891842}
-  - {fileID: 2292781693050468757}
   - {fileID: 476000158}
   - {fileID: 2134727096}
-  currentStageIndex: 0
+  - {fileID: 2292781693050468757}
+  currentStageIndex: 8
   player: {fileID: 1154545077}
 --- !u!4 &1790632295
 Transform:

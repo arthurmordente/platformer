@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic; // Necessário para usar listas
+using System.Collections;
 using System.Linq; // Necessário para usar métodos de consulta
 
 public class PlayerController : MonoBehaviour
@@ -23,9 +24,12 @@ public class PlayerController : MonoBehaviour
     private Deposito nearestDeposito; // Referência ao depósito mais próximo
     private GameObject heldObject = null;
     private int currentHandIndex = 0; // Índice da mão atual no array
-
+    
+    public LineRenderer lineRenderer;
     void Start()
     {
+        lineRenderer.positionCount = 2; // Precisamos de 2 pontos para formar a linha do raio
+        lineRenderer.enabled = false; // Desativa o LineRenderer inicialmente
         rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -59,6 +63,7 @@ public class PlayerController : MonoBehaviour
         HandleGiveMassInput(); // Input para depositar massa
         HandleObjectInteraction();
         HandleHandSwitching(); // Troca de mãos
+        HandleRayPlatformInteraction();
 
         // Verifica se o jogador está fora dos limites do estágio atual
         if (!IsPlayerWithinBounds())
@@ -332,9 +337,9 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1)) // Botão direito do mouse
         {
+            currentHandIndex = (currentHandIndex + 1) % playerHands.Length; // Troca para a próxima mão
             if (heldObject != null)
             {
-                currentHandIndex = (currentHandIndex + 1) % playerHands.Length; // Troca para a próxima mão
                 heldObject.transform.SetParent(playerHands[currentHandIndex]); // Move o objeto para a nova mão
                 heldObject.transform.localPosition = Vector3.zero; // Posiciona o objeto na nova mão
             }
@@ -348,11 +353,13 @@ public class PlayerController : MonoBehaviour
         if (heldObject != null)
         {
             Rigidbody heldObjectRb = heldObject.GetComponent<Rigidbody>();
+            ThrowableObject heldObjectScript = heldObject.GetComponent<ThrowableObject>();
             if (heldObjectRb != null)
             {
                 heldObject.transform.SetParent(null); // Remove o objeto da mão
                 heldObjectRb.isKinematic = false; // Permite que o objeto volte a ser afetado pela física
-
+                heldObjectScript.Drop();
+                
                 // Determina a direção do arremesso com base na mão atual
                 Vector3 throwDirection = GetThrowDirectionForCurrentHand();
                 heldObjectRb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
@@ -379,4 +386,70 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void HandleRayPlatformInteraction()
+    {
+        if (IsOnRayPlatform()) // Verifica se o jogador está em cima da RayPlatform
+        {
+            if (Input.GetKeyDown(KeyCode.R)) // Pressiona espaço para disparar o Raycast
+            {
+                ShootRayFromCurrentHand(); // Dispara o Raycast na direção da mão atual
+            }
+        }
+    }
+
+// Verifica se o jogador está em cima da RayPlatform
+    private bool IsOnRayPlatform()
+    {
+        RaycastHit hit;
+        // Lança um Raycast para baixo, verificando se está em cima da RayPlatform
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.5f)) 
+        {
+            if (hit.collider.CompareTag("RayPlatform"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Dispara um Raycast da mão atual do jogador
+    private void ShootRayFromCurrentHand()
+    {
+        Vector3 direction = GetThrowDirectionForCurrentHand(); // Obtém a direção da mão atual
+        RaycastHit hit;
+        float rayDistance = 20f; // Distância máxima do Raycast
+
+        // Configura o Raycast para ignorar a camada especificada
+        int layerMask = ~(1 << LayerMask.NameToLayer("IgnoreRay"));
+
+        // Lança o Raycast a partir da posição do jogador na direção da mão
+        if (Physics.Raycast(transform.position, direction, out hit, rayDistance, layerMask))
+        {
+            // Ativa o LineRenderer e desenha o raio
+            lineRenderer.enabled = true;
+            lineRenderer.SetPosition(0, transform.position); // Ponto de origem do Raycast (posição do jogador)
+            lineRenderer.SetPosition(1, hit.point); // Ponto de impacto (onde o Raycast colide)
+
+            // Ativa a PressurePlate se o Raycast colidir com ela
+            if (hit.collider.CompareTag("PressurePlate"))
+            {
+                hit.collider.GetComponent<PressurePlate>().Activate(); // Ativa a PressurePlate ao contato do Ray
+            }
+        }
+        else
+        {
+            // Se o Raycast não atingir nada, ainda assim desenhamos o raio no limite máximo
+            lineRenderer.enabled = true;
+            lineRenderer.SetPosition(0, transform.position); // Ponto de origem
+            lineRenderer.SetPosition(1, transform.position + direction * rayDistance); // Desenha o raio até o limite
+        }
+
+        // Desativa o LineRenderer após um tempo
+        StartCoroutine(DisableLineRendererAfterTime(0.1f)); // Desativa a linha após 0.1 segundo
+    }
+    private IEnumerator DisableLineRendererAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        lineRenderer.enabled = false; // Desativa o LineRenderer após o tempo especificado
+    }
 }

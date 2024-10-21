@@ -10,6 +10,8 @@ public class Stage : MonoBehaviour
     public GameObject[] depositos; // Depósitos no estágio
     public GameObject[] platforms; // Plataformas móveis no estágio
 
+    public GameObject[] throwables; // Plataformas móveis no estágio
+
     public Vector3 cameraPosition; // Posição desejada da câmera para o estágio
     public Quaternion cameraRotation; // Rotação desejada da câmera para o estágio
 
@@ -68,6 +70,15 @@ public class Stage : MonoBehaviour
                 platformScript.SaveInitialState();
             }
         }
+
+        foreach (GameObject throwable in throwables)
+        {
+            var throwableScript = throwable.GetComponent<ThrowableObject>();
+            if (throwableScript != null)
+            {
+                throwableScript.SaveInitialState();
+            }
+        }
     }
 
     public void ResetStage()
@@ -108,6 +119,15 @@ public class Stage : MonoBehaviour
             if (platformScript != null)
             {
                 platformScript.Reset();
+            }
+        }
+
+        foreach (GameObject throwable in throwables)
+        {
+            var throwableScript = throwable.GetComponent<ThrowableObject>();
+            if (throwableScript != null)
+            {
+                throwableScript.Reset();
             }
         }
 

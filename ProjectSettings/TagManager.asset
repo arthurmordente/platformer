@@ -10,6 +10,7 @@ TagManager:
   - Deposito
   - GravityButton
   - Trampoline
+  - PushableObject
   layers:
   - Default
   - TransparentFX

@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 50f;
     public float currentMass = 10f; // Massa atual do jogador
     public float interactionDistance = 5f; // Distância mínima para interagir com o depósito
+    public Transform[] playerHands;
+    public float throwForce = 10f; // Força usada para arremessar o objeto
 
     [SerializeField]
     private bool isGrounded;
@@ -19,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer; // Camada do chão
 
     private Deposito nearestDeposito; // Referência ao depósito mais próximo
+    private GameObject heldObject = null;
+    private int currentHandIndex = 0; // Índice da mão atual no array
 
     void Start()
     {
@@ -53,6 +57,8 @@ public class PlayerController : MonoBehaviour
         HandleJump(); // Pulo do jogador
         HandleReceiveMassInput(); // Input para receber massa
         HandleGiveMassInput(); // Input para depositar massa
+        HandleObjectInteraction();
+        HandleHandSwitching(); // Troca de mãos
 
         // Verifica se o jogador está fora dos limites do estágio atual
         if (!IsPlayerWithinBounds())
@@ -286,4 +292,91 @@ public class PlayerController : MonoBehaviour
     {
         rb.AddForce(direction * velocity, ForceMode.VelocityChange);
     }
+
+    private void HandleObjectInteraction()
+    {
+        if (Input.GetMouseButtonDown(0)) // Botão esquerdo do mouse
+        {
+            if (heldObject == null)
+            {
+                TryPickupObject(); // Tenta pegar o objeto
+            }
+            else
+            {
+                ThrowObject(); // Arremessa o objeto
+            }
+        }
+    }
+
+    private void TryPickupObject()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, interactionDistance);
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("PushableObject"))
+            {
+                heldObject = collider.gameObject;
+                heldObject.transform.SetParent(playerHands[currentHandIndex]); // Define o objeto como filho da mão atual
+                heldObject.transform.localPosition = Vector3.zero; // Move o objeto para a posição da mão
+                Rigidbody heldObjectRb = heldObject.GetComponent<Rigidbody>();
+                if (heldObjectRb != null)
+                {
+                    heldObjectRb.isKinematic = true; // Torna o objeto estático enquanto está sendo segurado
+                }
+                break;
+            }
+        }
+    }
+
+    private void HandleHandSwitching()
+    {
+        if (Input.GetMouseButtonDown(1)) // Botão direito do mouse
+        {
+            if (heldObject != null)
+            {
+                currentHandIndex = (currentHandIndex + 1) % playerHands.Length; // Troca para a próxima mão
+                heldObject.transform.SetParent(playerHands[currentHandIndex]); // Move o objeto para a nova mão
+                heldObject.transform.localPosition = Vector3.zero; // Posiciona o objeto na nova mão
+            }
+        }
+    }
+
+    // Solta o objeto que está sendo segurado
+    // Arremessa o objeto com base na mão atual
+    private void ThrowObject()
+    {
+        if (heldObject != null)
+        {
+            Rigidbody heldObjectRb = heldObject.GetComponent<Rigidbody>();
+            if (heldObjectRb != null)
+            {
+                heldObject.transform.SetParent(null); // Remove o objeto da mão
+                heldObjectRb.isKinematic = false; // Permite que o objeto volte a ser afetado pela física
+
+                // Determina a direção do arremesso com base na mão atual
+                Vector3 throwDirection = GetThrowDirectionForCurrentHand();
+                heldObjectRb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+            }
+            heldObject = null; // Limpa a referência do objeto após o arremesso
+        }
+    }
+
+    // Retorna a direção do arremesso com base na mão atual (direções cardeais)
+    private Vector3 GetThrowDirectionForCurrentHand()
+    {
+        switch (currentHandIndex)
+        {
+            case 0: // Mão 1 (Norte)
+                return Vector3.forward; // Arremessa para o Norte (frente)
+            case 1: // Mão 2 (Leste)
+                return Vector3.right; // Arremessa para o Leste (direita)
+            case 2: // Mão 3 (Sul)
+                return Vector3.back; // Arremessa para o Sul (trás)
+            case 3: // Mão 4 (Oeste)
+                return Vector3.left; // Arremessa para o Oeste (esquerda)
+            default:
+                return Vector3.forward; // Arremessa para frente por padrão (caso inesperado)
+        }
+    }
+
 }

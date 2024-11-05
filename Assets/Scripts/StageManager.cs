@@ -10,6 +10,21 @@ public class StageManager : MonoBehaviour
     private Camera mainCamera; // Referência à câmera principal
     public PlayerController player;
 
+    public static StageManager Instance;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            // DontDestroyOnLoad(gameObject); // Optionally keep the object between scenes
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
         mainCamera = Camera.main; // Obtém a referência à câmera principal

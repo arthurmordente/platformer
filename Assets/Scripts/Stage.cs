@@ -120,6 +120,12 @@ public class Stage : MonoBehaviour
             {
                 platformScript.Reset();
             }
+            else {
+                var hingeScript = platform.GetComponent<HingePlatform>();
+                if (hingeScript != null){
+                    hingeScript.ResetPlatform();
+                }
+            }
         }
 
         foreach (GameObject throwable in throwables)

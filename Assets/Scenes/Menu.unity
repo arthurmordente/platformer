@@ -180,7 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Programa\xE7\xE3o de F\xEDsica: Lista 1 - Movimenta\xE7\xE3o Transform/Vector3"
+  m_text: "Programa\xE7\xE3o de F\xEDsica: Lista 6 - Joints"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 41b6d01fcc3f22a47a72d08ed3e01af0, type: 2}
   m_sharedMaterial: {fileID: -5313933599126706348, guid: 41b6d01fcc3f22a47a72d08ed3e01af0,
@@ -984,7 +984,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 49.5
+  m_fontSize: 48.7
   m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 1

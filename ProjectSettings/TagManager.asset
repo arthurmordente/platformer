@@ -13,6 +13,7 @@ TagManager:
   - PushableObject
   - PressurePlate
   - RayPlatform
+  - PodItem
   layers:
   - Default
   - TransparentFX

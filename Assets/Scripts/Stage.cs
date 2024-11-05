@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
+    public int stageID;
     public Transform spawnPoint; // Ponto de spawn do jogador
     public float initialMass = 10f;
     public int totalKeysRequired; // Número total de chaves necessárias para o estágio

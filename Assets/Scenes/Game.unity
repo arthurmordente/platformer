@@ -275,6 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 18
   spawnPoint: {fileID: 694598277}
   initialMass: 10
   totalKeysRequired: 1
@@ -4841,6 +4842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 7
   spawnPoint: {fileID: 675611757}
   initialMass: 7
   totalKeysRequired: 1
@@ -5134,6 +5136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 12
   spawnPoint: {fileID: 118478819}
   initialMass: 10
   totalKeysRequired: 3
@@ -6670,6 +6673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 9
   spawnPoint: {fileID: 1304563356}
   initialMass: 7
   totalKeysRequired: 1
@@ -7199,6 +7203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 6
   spawnPoint: {fileID: 1038525332}
   initialMass: 7
   totalKeysRequired: 1
@@ -7399,6 +7404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 3
   spawnPoint: {fileID: 996874744}
   initialMass: 10
   totalKeysRequired: 1
@@ -8907,6 +8913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 2
   spawnPoint: {fileID: 496800968}
   initialMass: 10
   totalKeysRequired: 1
@@ -10117,6 +10124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 8
   spawnPoint: {fileID: 32402566}
   initialMass: 10
   totalKeysRequired: 1
@@ -10182,6 +10190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 19
   spawnPoint: {fileID: 1099911863}
   initialMass: 10
   totalKeysRequired: 3
@@ -12187,6 +12196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 5
   spawnPoint: {fileID: 711754491}
   initialMass: 1
   totalKeysRequired: 1
@@ -12681,6 +12691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 4
   spawnPoint: {fileID: 529482276}
   initialMass: 10
   totalKeysRequired: 1
@@ -16340,9 +16351,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 17
   spawnPoint: {fileID: 653348875}
   initialMass: 10
-  totalKeysRequired: 1
+  totalKeysRequired: 2
   keys:
   - {fileID: 816297770}
   - {fileID: 2000956432}
@@ -17271,6 +17283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 14
   spawnPoint: {fileID: 370096786}
   initialMass: 10
   totalKeysRequired: 0
@@ -18089,6 +18102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 16
   spawnPoint: {fileID: 1298911426}
   initialMass: 10
   totalKeysRequired: 0
@@ -21563,6 +21577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 10
   spawnPoint: {fileID: 1309559076}
   initialMass: 7
   totalKeysRequired: 1
@@ -23122,6 +23137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 1
   spawnPoint: {fileID: 587424441}
   initialMass: 10
   totalKeysRequired: 2
@@ -23657,6 +23673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 0
   spawnPoint: {fileID: 2137272395}
   initialMass: 10
   totalKeysRequired: 1
@@ -23956,6 +23973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 15
   spawnPoint: {fileID: 2139749791}
   initialMass: 10
   totalKeysRequired: 0
@@ -24967,6 +24985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 13
   spawnPoint: {fileID: 247016100}
   initialMass: 10
   totalKeysRequired: 3
@@ -25571,6 +25590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396604384ef1c9746b40681d89eaa8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageID: 11
   spawnPoint: {fileID: 5271746868746262652}
   initialMass: 10
   totalKeysRequired: 1

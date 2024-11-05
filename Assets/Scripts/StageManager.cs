@@ -43,6 +43,10 @@ public class StageManager : MonoBehaviour
         }
     }
 
+    public void SetCurrentIndex(int index){
+        currentStageIndex = index;
+    }
+    
     public void SetCurrentStage(Stage stage)
     {
         // Desativa o estágio anterior, se houver

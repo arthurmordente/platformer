@@ -8,6 +8,7 @@ public class ButtonSelectStage : MonoBehaviour
 
     public void ButtonPress()
     {
+        StageManager.Instance.SetCurrentIndex(stage.stageID);
         StageManager.Instance.SetCurrentStage(stage);
     }
 }

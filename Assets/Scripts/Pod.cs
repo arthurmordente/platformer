@@ -21,6 +21,7 @@ public class Pod : MonoBehaviour
 
                 // Attach the other object to the joint
                 fixedJoint.connectedBody = collision.rigidbody;
+                
                 podKey.gameObject.SetActive(true);
 
                 /* Optionally, you can set additional joint properties here, like the break force

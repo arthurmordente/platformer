@@ -11,7 +11,10 @@ public class Stage : MonoBehaviour
     public GameObject[] depositos; // Depósitos no estágio
     public GameObject[] platforms; // Plataformas móveis no estágio
 
+
     public GameObject[] throwables; // Plataformas móveis no estágio
+
+    public GameObject[] jetpacks; // Plataformas móveis no estágio
 
     public Vector3 cameraPosition; // Posição desejada da câmera para o estágio
     public Quaternion cameraRotation; // Rotação desejada da câmera para o estágio
@@ -135,6 +138,15 @@ public class Stage : MonoBehaviour
             if (throwableScript != null)
             {
                 throwableScript.Reset();
+            }
+        }
+
+        foreach (GameObject jetpack in jetpacks)
+        {
+            var jetpackScript = jetpack.GetComponent<Jetpack>();
+            if (jetpackScript != null)
+            {
+                jetpackScript.Reset();
             }
         }
 

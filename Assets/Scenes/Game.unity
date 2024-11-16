@@ -383,6 +383,7 @@ MonoBehaviour:
   - {fileID: 172328072}
   - {fileID: 1992300438}
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 0, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 45}
@@ -715,6 +716,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9219826856033742131, guid: b16715f1f156ccf47b3dfa34dcc81752,
     type: 3}
   m_PrefabInstance: {fileID: 1854712374}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &60172915 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5649761324082115039, guid: 44c2559461fb98d469100eab92151e27,
+    type: 3}
+  m_PrefabInstance: {fileID: 949703643}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &61745985
 PrefabInstance:
@@ -5324,6 +5331,7 @@ MonoBehaviour:
   platforms:
   - {fileID: 2117885942}
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 7, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -19, y: 34}
@@ -5714,6 +5722,7 @@ MonoBehaviour:
   depositos: []
   platforms: []
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 0, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 30}
@@ -7554,6 +7563,7 @@ MonoBehaviour:
   depositos: []
   platforms: []
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 3, y: 10, z: -13}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 42}
@@ -8182,6 +8192,7 @@ MonoBehaviour:
   - {fileID: 1843720040}
   platforms: []
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 7, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 28}
@@ -8377,6 +8388,7 @@ MonoBehaviour:
   depositos: []
   platforms: []
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 7, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 28}
@@ -9980,6 +9992,7 @@ MonoBehaviour:
   depositos: []
   platforms: []
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 0, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -20, y: 20}
@@ -11193,6 +11206,7 @@ MonoBehaviour:
   - {fileID: 257559142}
   - {fileID: 1780922305}
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 0, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 15}
@@ -11355,6 +11369,7 @@ MonoBehaviour:
   platforms:
   - {fileID: 669121334}
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 0, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 45}
@@ -11628,13 +11643,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5649761324082115039, guid: 44c2559461fb98d469100eab92151e27,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5649761324082115039, guid: 44c2559461fb98d469100eab92151e27,
+        type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454880756831565297, guid: 44c2559461fb98d469100eab92151e27,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5649761324082115039, guid: 44c2559461fb98d469100eab92151e27,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 949703648}
   m_SourcePrefab: {fileID: 100100000, guid: 44c2559461fb98d469100eab92151e27, type: 3}
 --- !u!4 &949703644 stripped
 Transform:
@@ -11642,6 +11671,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 949703643}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &949703648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60172915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f036262178397a44c8ca37ebb8f460d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &950595082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13533,6 +13574,7 @@ MonoBehaviour:
   - {fileID: 816634622}
   platforms: []
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 7, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 28}
@@ -14134,6 +14176,7 @@ MonoBehaviour:
   - {fileID: 1710950011}
   platforms: []
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 7, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 28}
@@ -16350,7 +16393,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1276458346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16378,6 +16421,8 @@ MonoBehaviour:
   platforms:
   - {fileID: 1823418174}
   throwables: []
+  jetpacks:
+  - {fileID: 60172915}
   cameraPosition: {x: 0, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 45}
@@ -18059,6 +18104,7 @@ MonoBehaviour:
   platforms:
   - {fileID: 1957588117}
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 0, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 45}
@@ -19084,6 +19130,7 @@ MonoBehaviour:
   depositos: []
   platforms: []
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 0, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 15}
@@ -20012,6 +20059,7 @@ MonoBehaviour:
   depositos: []
   platforms: []
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 0, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 15}
@@ -23683,6 +23731,7 @@ MonoBehaviour:
   depositos: []
   platforms: []
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 7, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 28}
@@ -25285,6 +25334,7 @@ MonoBehaviour:
   depositos: []
   platforms: []
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 4.7, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 22}
@@ -25950,6 +26000,7 @@ MonoBehaviour:
   depositos: []
   platforms: []
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 0, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 15}
@@ -26250,6 +26301,7 @@ MonoBehaviour:
   platforms: []
   throwables:
   - {fileID: 1120996776}
+  jetpacks: []
   cameraPosition: {x: 0, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 15}
@@ -27454,6 +27506,7 @@ MonoBehaviour:
   depositos: []
   platforms: []
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 0, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 40}
@@ -28057,6 +28110,7 @@ MonoBehaviour:
   depositos: []
   platforms: []
   throwables: []
+  jetpacks: []
   cameraPosition: {x: 0, y: 11.9, z: -13.1}
   cameraRotation: {x: 0.30403307, y: 0, z: 0, w: 0.95266145}
   xBounds: {x: -15, y: 15}

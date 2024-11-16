@@ -132,7 +132,7 @@ public class ControleNave : MonoBehaviour
         // Update the isEquiped status
         isEquiped = false;
 
-        Destroy(this.gameObject);
+        // Destroy(this.gameObject);
 
     }
 }
